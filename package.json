@@ -1,0 +1,29 @@
+{
+  "name": "ios-automation-ebac",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Automacao mobile iOS com WebdriverIO, Appium e SauceLabs para exercicio EBAC.",
+  "scripts": {
+    "test": "wdio run ./config/wdio.conf.js",
+    "test:checkout": "wdio run ./config/wdio.conf.js --suite checkout",
+    "allure": "allure generate allure-results && allure open"
+  },
+  "keywords": [
+    "webdriverio",
+    "appium",
+    "saucelabs",
+    "ios",
+    "ebac"
+  ],
+  "author": "EBAC",
+  "license": "ISC",
+  "devDependencies": {
+    "@wdio/allure-reporter": "^8.39.0",
+    "@wdio/cli": "^8.39.1",
+    "@wdio/local-runner": "^8.39.1",
+    "@wdio/mocha-framework": "^8.39.0",
+    "@wdio/spec-reporter": "^8.39.0",
+    "allure-commandline": "^2.29.0",
+    "dotenv": "^16.4.5"
+  }
+}
