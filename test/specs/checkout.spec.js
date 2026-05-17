@@ -13,6 +13,7 @@ describe('Checkout', function () {
   it('deve finalizar uma compra com sucesso', async function () {
     await homePage.openMenu('Account');
     await loginPage.login('cliente@ebac.art.br', 'GD*peToHNJ1#c$sgk08EaYJQ');
+    await browser.pause(3000); // espera o app processar o login
     await homePage.openMenu('Home');
     await homePage.search();
     await browsePage.searchProduct('In');

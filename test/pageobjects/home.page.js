@@ -33,11 +33,29 @@ class HomePage {
   }
 
   async openMenu(menu) {
-  const normalizedMenu = this.normalizeMenu(menu);
-  const btn = await $(`id:tab-${normalizedMenu}`);
-  await btn.waitForDisplayed({ timeout: 15000 });
-  await btn.click();
-}
+    const normalizedMenu = this.normalizeMenu(menu);
+    const selectors = [
+      `~${normalizedMenu}`,
+      `id:tab-${normalizedMenu}`,
+      `-ios predicate string:name == "${normalizedMenu}" OR label == "${normalizedMenu}"`,
+      `//XCUIElementTypeButton[@name="${normalizedMenu}" or @label="${normalizedMenu}"]`,
+    ];
+
+    let btn;
+    for (const selector of selectors) {
+      try {
+        const el = await $(selector);
+        await el.waitForDisplayed({ timeout: 20000 });
+        btn = el;
+        break;
+      } catch (e) {
+        // ignore selectors that fail
+      }
+    }
+
+    if (!btn) throw new Error(`Nenhum seletor funcionou para menu: ${menu}`);
+    await btn.click();
+  }
 
   async search() {
     const searchProducts = await this.findDisplayed([

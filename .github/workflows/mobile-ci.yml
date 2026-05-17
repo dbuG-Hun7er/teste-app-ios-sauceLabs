@@ -1,0 +1,29 @@
+name: EBAC CI Mobile
+
+on:
+  push:
+    branches: [ ci ]
+
+  workflow_dispatch:
+
+jobs:
+  mobile-tests:
+    runs-on: ubuntu-latest
+
+    env:
+      SAUCE_USERNAME: oauth-geleiao.steam-7a998
+      SAUCE_ACCESS_KEY: bc1cee98-1e1c-445f-9161-b06fa1f77655
+      SAUCE_APP: LojaEBAC-sim.zip
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run mobile tests on SauceLabs
+        run: npm run test
