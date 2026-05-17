@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SAUCE_USERNAME: oauth-geleiao.steam-7a998
-      SAUCE_ACCESS_KEY: bc1cee98-1e1c-445f-9161-b06fa1f77655
-      SAUCE_APP: LojaEBAC-sim.zip
+      SAUCE_USERNAME: "oauth-geleiao.steam-7a998"
+      SAUCE_ACCESS_KEY: "bc1cee98-1e1c-445f-9161-b06fa1f77655"
+      SAUCE_APP: "LojaEBAC-sim.zip"
 
     steps:
       - uses: actions/checkout@v4
