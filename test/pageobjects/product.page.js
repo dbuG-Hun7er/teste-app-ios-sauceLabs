@@ -1,13 +1,14 @@
-import { $ } from "@wdio/globals";
+const { $ } = require('@wdio/globals');
 
 class ProductPage {
   get addToCartButton() {
-    return $("~addToCart");
+    return $('~addToCart');
   }
 
-  async addToCart() {
+  async btnAddToCart() {
+    await this.addToCartButton.waitForDisplayed({ timeout: 15000 });
     await this.addToCartButton.click();
   }
 }
 
-export default new ProductPage();
+module.exports = new ProductPage();

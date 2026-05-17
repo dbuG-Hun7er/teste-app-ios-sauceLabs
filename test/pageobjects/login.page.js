@@ -1,8 +1,8 @@
-import { $ } from "@wdio/globals";
+const { $ } = require('@wdio/globals');
 
 class LoginPage {
   get inputEmail() {
-    return $("id:email");
+    return $('id:email');
   }
 
   get inputPassword() {
@@ -10,14 +10,19 @@ class LoginPage {
   }
 
   get btnLogin() {
-    return $("~btnLogin");
+    return $('~btnLogin');
   }
 
   async login(username, password) {
+    await this.inputEmail.waitForDisplayed({ timeout: 15000 });
     await this.inputEmail.setValue(username);
+
+    await this.inputPassword.waitForDisplayed({ timeout: 15000 });
     await this.inputPassword.setValue(password);
+
+    await this.btnLogin.waitForDisplayed({ timeout: 15000 });
     await this.btnLogin.click();
   }
 }
 
-export default new LoginPage();
+module.exports = new LoginPage();

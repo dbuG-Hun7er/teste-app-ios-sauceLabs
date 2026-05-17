@@ -1,26 +1,30 @@
-import { $ } from "@wdio/globals";
+const { $ } = require('@wdio/globals');
 
 class CartPage {
-  get selectAddressOrContinueButton() {
-    return $(`~selectAddressOrContinueToPayment`);
+  get btnSelectAddressOrContinue() {
+    return $('~selectAddressOrContinueToPayment');
   }
 
   get addNewAddressButton() {
-    return $("~addNewAddress");
+    return $('~addNewAddress');
   }
 
   async doesNotHaveAddress() {
-    const label = await this.selectAddressOrContinueButton.getAttribute("label");
-    return label === "Select address";
+    const label = await (
+      await this.btnSelectAddressOrContinue
+    ).getAttribute('label');
+    return label === 'Select address';
   }
 
   async continueToPayment() {
-    await this.selectAddressOrContinueButton.click();
+    await this.btnSelectAddressOrContinue.waitForDisplayed({ timeout: 15000 });
+    await this.btnSelectAddressOrContinue.click();
   }
 
-  async addNewAddress() {
+  async btnAddNewAddress() {
+    await this.addNewAddressButton.waitForDisplayed({ timeout: 15000 });
     await this.addNewAddressButton.click();
   }
 }
 
-export default new CartPage();
+module.exports = new CartPage();

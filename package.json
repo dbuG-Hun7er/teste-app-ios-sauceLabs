@@ -1,7 +1,7 @@
 {
   "name": "ios-automation-ebac",
   "version": "1.0.0",
-  "type": "module",
+  
   "description": "Automacao mobile iOS com WebdriverIO, Appium e SauceLabs para exercicio EBAC.",
   "scripts": {
     "test": "wdio run ./config/wdio.conf.js",

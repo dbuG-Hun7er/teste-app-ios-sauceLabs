@@ -1,23 +1,24 @@
-import { $ } from "@wdio/globals";
+const { $ } = require('@wdio/globals');
 
 class CheckoutPage {
-  get checkoutButton() {
-    return $(`~completeCheckout`);
+  get btnCheckout() {
+    return $('~completeCheckout');
   }
 
   get successMessageAndImage() {
-    return $(`~transactionSuccessfulImage`);
+    return $('~transactionSuccessfulImage');
   }
 
-  get successTitle() {
+  get sucessTitle() {
     return $(
-      `-ios predicate string:name == "Order Success" AND label == "Order Success" AND value == "Order Success"`
+      '-ios predicate string:name == "Order Success" AND label == "Order Success" AND value == "Order Success"'
     );
   }
 
   async proceedToCheckout() {
-    await this.checkoutButton.click();
+    await this.btnCheckout.waitForDisplayed({ timeout: 15000 });
+    await this.btnCheckout.click();
   }
 }
 
-export default new CheckoutPage();
+module.exports = new CheckoutPage();
