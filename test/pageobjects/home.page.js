@@ -3,7 +3,8 @@ const { $, browser } = require('@wdio/globals');
 class HomePage {
   normalizeMenu(menu) {
     const menuAliases = {
-      'Profile': 'Account',
+      'Account': 'Profile',  // ← invertido! o app usa Profile, não Account
+    'Home': 'Home',
     };
     return menuAliases[menu] || menu;
   }
