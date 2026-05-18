@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EBAC Shop iOS — Automação Mobile CI</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00E5A0;
+    --dark: #0a0a0a;
+    --card: #111111;
+    --border: #1e1e1e;
+    --text: #e8e8e8;
+    --muted: #666;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* GRID BG */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.2);
+    color: var(--green);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 2px;
+    margin-bottom: 40px;
+    width: fit-content;
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  h1 span { color: var(--green); }
+
+  .subtitle {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: var(--dark);
+    font-weight: 700;
+  }
+
+  .btn-primary:hover { background: #00ffb3; transform: translateY(-2px); }
+
+  .btn-secondary {
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* STATS */
+  .stats {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .stat {
+    padding: 40px;
+    border-right: 1px solid var(--border);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-number {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--green);
+    font-family: 'Space Mono', monospace;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* SECTIONS */
+  .section {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 40px;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 48px;
+  }
+
+  /* STACK GRID */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .stack-item {
+    background: var(--card);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+
+  .stack-item:hover { background: #161616; }
+
+  .stack-icon {
+    font-size: 28px;
+    margin-bottom: 4px;
+  }
+
+  .stack-name {
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .stack-version {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+  }
+
+  /* FLOW */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .flow-step {
+    background: var(--card);
+    padding: 28px 32px;
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    transition: background 0.2s;
+  }
+
+  .flow-step:hover { background: #161616; }
+
+  .step-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--green);
+    min-width: 32px;
+    padding-top: 2px;
+  }
+
+  .step-content h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .step-content p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* DEVICE CARD */
+  .device-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .device-card {
+    background: var(--card);
+    padding: 32px;
+  }
+
+  .device-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .device-value {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  /* RESULT */
+  .result-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    padding: 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    line-height: 2;
+  }
+
+  .result-box .pass { color: var(--green); }
+  .result-box .info { color: var(--muted); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 40px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .device-grid { grid-template-columns: 1fr; }
+    h1 { letter-spacing: -2px; }
+    .hero { padding: 60px 24px; }
+    .section { padding: 60px 24px; }
+  }
+
+  @media (max-width: 480px) {
+    .stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">Módulo 30 — EBAC QA</div>
+  <h1>EBAC Shop<br><span>iOS CI</span></h1>
+  <p class="subtitle">Automação mobile iOS integrada com GitHub Actions e SauceLabs. Testes executados em simulador remoto iPhone XR — sem macOS.</p>
+  <div class="cta-group">
+    <a href="https://github.com/dbuG-Hun7er/teste-app-ios-sauceLabs/tree/ci" class="btn btn-primary" target="_blank">Ver Repositório</a>
+    <a href="https://github.com/dbuG-Hun7er/teste-app-ios-sauceLabs/actions" class="btn btn-secondary" target="_blank">GitHub Actions</a>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number">30</div>
+    <div class="stat-label">Módulo EBAC</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">iOS</div>
+    <div class="stat-label">Plataforma</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">1</div>
+    <div class="stat-label">Smoke Test</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">CI</div>
+    <div class="stat-label">Branch</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-label">Stack</div>
+  <div class="section-title">Tecnologias</div>
+  <div class="stack-grid">
+    <div class="stack-item">
+      <div class="stack-icon">⚡</div>
+      <div class="stack-name">WebdriverIO</div>
+      <div class="stack-version">v8.39.1</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">📱</div>
+      <div class="stack-name">Appium</div>
+      <div class="stack-version">v2.0.0</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">🍎</div>
+      <div class="stack-name">XCUITest</div>
+      <div class="stack-version">Driver iOS</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">☁️</div>
+      <div class="stack-name">SauceLabs</div>
+      <div class="stack-version">Device Farm</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">⚙️</div>
+      <div class="stack-name">GitHub Actions</div>
+      <div class="stack-version">CI/CD</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">🟨</div>
+      <div class="stack-name">JavaScript</div>
+      <div class="stack-version">Node.js 20</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">🧪</div>
+      <div class="stack-name">Mocha</div>
+      <div class="stack-version">Framework</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-icon">📦</div>
+      <div class="stack-name">CommonJS</div>
+      <div class="stack-version">Module System</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top: 0">
+  <div class="section-label">Pipeline</div>
+  <div class="section-title">Fluxo CI</div>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <h3>Push na branch ci</h3>
+        <p>Qualquer push na branch <code style="color:var(--green)">ci</code> dispara o workflow automaticamente.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <h3>Setup Node.js 20</h3>
+        <p>GitHub Actions provisiona um runner Ubuntu e configura o ambiente Node.js.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <h3>Instala dependências</h3>
+        <p>Executa <code style="color:var(--green)">npm ci</code> para instalar todas as dependências do projeto.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">04</div>
+      <div class="step-content">
+        <h3>Conecta ao SauceLabs</h3>
+        <p>WebdriverIO autentica e cria sessão no simulador iPhone XR remoto via SauceLabs.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">05</div>
+      <div class="step-content">
+        <h3>Executa Smoke Test</h3>
+        <p>Abre o app EBAC Shop, navega até o login, preenche credenciais e valida o sucesso.</p>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="step-num">06</div>
+      <div class="step-content">
+        <h3>Grava evidência</h3>
+        <p>SauceLabs registra vídeo, screenshots e logs da execução automaticamente.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top: 0">
+  <div class="section-label">Device Farm</div>
+  <div class="section-title">Configuração iOS</div>
+  <div class="device-grid">
+    <div class="device-card">
+      <div class="device-label">Plataforma</div>
+      <div class="device-value">iOS 17.0</div>
+    </div>
+    <div class="device-card">
+      <div class="device-label">Dispositivo</div>
+      <div class="device-value">iPhone XR Simulator</div>
+    </div>
+    <div class="device-card">
+      <div class="device-label">Driver</div>
+      <div class="device-value">XCUITest</div>
+    </div>
+    <div class="device-card">
+      <div class="device-label">Appium</div>
+      <div class="device-value">2.0.0</div>
+    </div>
+    <div class="device-card">
+      <div class="device-label">Região</div>
+      <div class="device-value">US West</div>
+    </div>
+    <div class="device-card">
+      <div class="device-label">App</div>
+      <div class="device-value">LojaEBAC-sim.zip</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top: 0">
+  <div class="section-label">Resultado</div>
+  <div class="section-title">Execução</div>
+  <div class="result-box">
+    <div class="pass">✓ deve realizar o login com sucesso</div>
+    <br>
+    <div class="info">Spec Files: &nbsp; 1 passed, 1 total (100% completed)</div>
+    <div class="info">Duration: &nbsp;&nbsp; ~5 minutes</div>
+    <div class="info">Runner: &nbsp;&nbsp;&nbsp;&nbsp; SauceLabs — iPhone XR Simulator iOS 17.0</div>
+    <div class="info">Branch: &nbsp;&nbsp;&nbsp;&nbsp; ci</div>
+    <div class="info">Trigger: &nbsp;&nbsp;&nbsp; GitHub Actions — push</div>
+  </div>
+</div>
+
+<footer>
+  EBAC — Engenharia de Qualidade de Software &nbsp;·&nbsp; Módulo 30 &nbsp;·&nbsp;
+  <a href="https://github.com/dbuG-Hun7er/teste-app-ios-sauceLabs" style="color:var(--green); text-decoration:none;">github.com/dbuG-Hun7er</a>
+</footer>
+
+</body>
+</html>
