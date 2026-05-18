@@ -7,6 +7,7 @@ const sauceConf = {
   key: process.env.SAUCE_ACCESS_KEY,
   hostname: 'ondemand.us-west-1.saucelabs.com',
   port: 443,
+  region: 'us',
   baseUrl: 'wd/hub',
   capabilities: [
     {
