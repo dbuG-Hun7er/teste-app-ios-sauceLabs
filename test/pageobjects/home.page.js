@@ -3,8 +3,10 @@ const { $, browser } = require('@wdio/globals');
 class HomePage {
   normalizeMenu(menu) {
     const menuAliases = {
-       'Account': 'Profile',  // ← invertido! o app usa Profile, não Account
-    'Home': 'Home',
+      'Profile': 'tab-Account',
+      'Home': 'tab-Home',
+      'Browse': 'tab-Browse',
+      'Order': 'tab-Order',
     };
     return menuAliases[menu] || menu;
   }
@@ -33,27 +35,10 @@ class HomePage {
     return foundElement;
   }
 
-  async openMenu(menu) {
+   async openMenu(menu) {
     const normalizedMenu = this.normalizeMenu(menu);
-    const selectors = [
-      `~${normalizedMenu}`,
-      `id:tab-${normalizedMenu}`,
-      `-ios predicate string:name == "${normalizedMenu}" OR label == "${normalizedMenu}"`,
-      `//XCUIElementTypeButton[@name="${normalizedMenu}" or @label="${normalizedMenu}"]`,
-    ];
-
-    let btn;
-    for (const selector of selectors) {
-      try {
-        const el = await $(selector);
-        await el.waitForDisplayed({ timeout: 20000 });
-        btn = el;
-        break;
-      } catch (e) {
-        // ignore selectors that fail
-      }
-    }
-
+    const btn = await $(`~${normalizedMenu}`);
+    await btn.waitForDisplayed({ timeout: 15000 });
     if (!btn) throw new Error(`Nenhum seletor funcionou para menu: ${menu}`);
     await btn.click();
   }

@@ -59,8 +59,6 @@ build/Release
 .yarn-integrity
 
 # dotenv - NUNCA suba credenciais!
-.env
-.env.*
 !.env.example
 
 # Next/Nuxt/Gatsby/Vuep
