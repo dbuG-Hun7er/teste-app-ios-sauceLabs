@@ -11,10 +11,10 @@ describe('Checkout', function () {
   this.timeout(300000);
 
   it('deve finalizar uma compra com sucesso', async function () {
-    await homePage.openMenu('Profile'); // ← corrigido para 'Profile'
+    await homePage.openMenu('Profile'); 
     await loginPage.login('cliente@ebac.art.br', 'GD*peToHNJ1#c$sgk08EaYJQ');
-    await browser.pause(3000); // espera o app processar o login
-    await homePage.openMenu('Profile'); // ← corrigido para 'Profile'
+    await browser.pause(3000); 
+    await homePage.openMenu('Profile');
     await homePage.search();
     await browsePage.searchProduct('In');
     await browsePage.openFirstProduct();

@@ -3,22 +3,22 @@ const { $ } = require('@wdio/globals');
 class AddressPage {
   async addNewAddress() {
     await (await this.inputName).waitForDisplayed({ timeout: 15000 });
-    await (await this.inputName).setValue('Meu Endereço');
+    await (await this.inputName).setValue('testador');
 
     await (await this.inputNumber).waitForDisplayed({ timeout: 15000 });
-    await (await this.inputNumber).setValue('5561987654321');
+    await (await this.inputNumber).setValue('15998000200');
 
     await (await this.inputAddress).waitForDisplayed({ timeout: 15000 });
-    await (await this.inputAddress).setValue('QNL 11 Bloco B');
+    await (await this.inputAddress).setValue('rua do teste, 123');
 
     await (await this.inputCity).waitForDisplayed({ timeout: 15000 });
-    await (await this.inputCity).setValue('Taguatinga');
+    await (await this.inputCity).setValue('botiuva');
 
     await (await this.inputState).waitForDisplayed({ timeout: 15000 });
-    await (await this.inputState).setValue('Brasilia');
+    await (await this.inputState).setValue('sao paulo');
 
     await (await this.inputZipCode).waitForDisplayed({ timeout: 15000 });
-    await (await this.inputZipCode).setValue('72151000');
+    await (await this.inputZipCode).setValue('180000-000');
 
     await (await this.btnSave).waitForDisplayed({ timeout: 15000 });
     await (await this.btnSave).click();

@@ -33,7 +33,7 @@ const sauceConf = {
     ui: 'bdd',
     timeout: 300000
   },
-  specs: ['../test/specs/checkout.spec.js'],
+  specs: ['../test/specs/smoke.spec.js'],
   reporters: ['spec'],
   beforeTest: async function () {
     const state = await driver.queryAppState(bundleId);
