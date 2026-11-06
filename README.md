@@ -1,6 +1,6 @@
 # 📱 EBAC Shop — Automação Mobile iOS
 
-> **Módulo 29 | EBAC – Engenharia de Qualidade de Software**  
+> AppShop | EBACShop – Engenharia de Qualidade de Software**  
 > Testes automatizados para aplicação iOS usando WebdriverIO, Appium e SauceLabs.
 
 ---
